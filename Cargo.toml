@@ -9,3 +9,12 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+rustls = { version = "0.21.8", features = ["dangerous_configuration"] }
+futures = { version = "0.3.29", default-features = false }
+futures-rustls = "0.24.0"
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+libp2p-core = "0.41.0"
+libp2p-identity = "0.2.7"
+
+[dev-dependencies]
