@@ -58,6 +58,19 @@ After an upgrade is successful, an object of type `InboundUpgrade::Output` or
 there is no constraint on the traits that it should implement, however it is expected that it
 can be used by the user to control the behaviour of the protocol.
 
+### Security handshake issues
+
+Overall, libp2p specifies two security protocols, TLS 1.3 and Noise. During a handshake, certificates
+should be verified in order to allow the connection attempt to be aborted during the security handshake.
+This requires being able to verify the peer ID after the handshake. Otherwise, we will have abnormal
+behaviors, such as aborting after completing the handshake and leaving the peer not knowing what went
+wrong.
+
+In order to address this problem we introduced the `SecurityUpgrade` trait that should be implemented
+by transports such as Noise or TLS. Then, we modified the `Builder::authenticate` function to accept
+an upgrade that implements this trait. Moreover, we implemented a state machine in `upgrade::secure`
+that calls the `SecurityUpgrade` trait instead of `InboundUpgrade` / `OutboundUpgrade`. Finally, we
+complete the solution by providing an implementation of the `SecurityUpgrade` trait for TLS transport.
 
 [TCP]: https://datatracker.ietf.org/doc/rfc9293
 [TLS]: https://datatracker.ietf.org/doc/rfc8446
