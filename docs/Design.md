@@ -47,14 +47,14 @@ An upgrade is performed in two steps:
 which protocols are supported by the trait implementation. The `multistream-select` protocol
 is used in order to agree on which protocol to use amongst the ones supported.
 
-- A handshake. After a successful negotiation, the `InboundUpgrade::upgrade_inbound` or
-`OutboundUpgrade::upgrade_outbound` method is called. This method will return a `Future` that
+- A handshake. After a successful negotiation, the `InboundConnectionUpgrade::upgrade_inbound` or
+`OutboundConnectionUpgrade::upgrade_outbound` method is called. This method will return a `Future` that
 performs a handshake. This handshake is considered mandatory, however in practice it is
 possible for the trait implementation to return a dummy `Future` that doesn't perform any
 action and immediately succeeds.
 
-After an upgrade is successful, an object of type `InboundUpgrade::Output` or
-`OutboundUpgrade::Output` is returned. The actual object depends on the implementation and
+After an upgrade is successful, an object of type `InboundConnectionUpgrade::Output` or
+`OutboundConnectionUpgrade::Output` is returned. The actual object depends on the implementation and
 there is no constraint on the traits that it should implement, however it is expected that it
 can be used by the user to control the behaviour of the protocol.
 
@@ -66,11 +66,13 @@ This requires being able to verify the peer ID after the handshake. Otherwise, w
 behaviors, such as aborting after completing the handshake and leaving the peer not knowing what went
 wrong.
 
-In order to address this problem we introduced the `SecurityUpgrade` trait that should be implemented
-by transports such as Noise or TLS. Then, we modified the `Builder::authenticate` function to accept
-an upgrade that implements this trait. Moreover, we implemented a state machine in `upgrade::secure`
-that calls the `SecurityUpgrade` trait instead of `InboundUpgrade` / `OutboundUpgrade`. Finally, we
-complete the solution by providing an implementation of the `SecurityUpgrade` trait for TLS transport.
+In order to address this problem we introduced the `InboundSecurityUpgrade`/`OutboundSecurityUpgrade`
+traits that should be implemented by transports such as Noise or TLS. Then, we modified the `Builder::authenticate`
+function to accept an upgrade that implements these traits. Moreover, we implemented a state machine
+in `upgrade::secure` that calls the `InboundSecurityUpgrade`/`OutboundSecurityUpgrade` traits instead
+of `InboundConnectionUpgrade`/`OutboundConnectionUpgrade`. Finally, we complete the solution by providing
+an implementation of the `InboundSecurityUpgrade`/`OutboundSecurityUpgrade` trait for TLS transport.
+
 
 [TCP]: https://datatracker.ietf.org/doc/rfc9293
 [TLS]: https://datatracker.ietf.org/doc/rfc8446

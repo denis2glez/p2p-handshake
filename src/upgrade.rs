@@ -2,9 +2,10 @@
 //!
 //! The `UpgradeInfo::protocol_info` method is called to determine which protocols are supported by
 //! the trait implementation.
-//! After a successful negotiation, the `SecurityUpgrade::upgrade_security` method is called. This
-//! method will return a `Future` that performs a handshake. This handshake is considered mandatory,
-//! however in practice it is possible for the trait implementation to return a dummy `Future`.
+//! After a successful negotiation, `InboundConnectionUpgrade::secure_inbound` or `OutboundSecurityUpgrade::secure_outbound`
+//! method is called. This method will return a `Future` that performs a handshake. This handshake
+//! is considered mandatory, however in practice it is possible for the trait implementation to return
+//! a dummy `Future`.
 
 use futures::{future::BoxFuture, AsyncRead, AsyncWrite, Future};
 use futures_rustls::TlsStream;
