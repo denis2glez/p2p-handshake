@@ -1,4 +1,5 @@
 use crate::certificate::{GenError, ParseError};
+use libp2p_identity::PeerId;
 use multistream_select::NegotiationError;
 use std::fmt;
 
@@ -12,6 +13,8 @@ pub enum TlsUpgradeError {
     ClientUpgrade(std::io::Error),
     #[error("Failed to parse certificate")]
     BadCertificate(#[from] ParseError),
+    #[error("Invalid peer ID (expected {expected:?}, found {found:?})")]
+    PeerIdMismatch { expected: PeerId, found: PeerId },
 }
 
 /// Error that can happen when upgrading a connection or substream to use a protocol.
