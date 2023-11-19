@@ -33,10 +33,8 @@ pub trait InboundSecurityUpgrade<T>: UpgradeInfo {
     /// After we have determined that the remote supports one of the protocols we support, this
     /// method is called to start the handshake.
     ///
-    /// The `info` is the identifier of the protocol, as produced by `protocol_info`. Security
-    /// transports use the optional `peer_id` parameter on outgoing upgrades to validate the
-    /// expected `PeerId`.
-    fn secure_inbound(self, socket: T, info: Self::Info, peer_id: Option<PeerId>) -> Self::Future;
+    /// The `info` is the identifier of the protocol, as produced by `protocol_info`.
+    fn secure_inbound(self, socket: T, info: Self::Info) -> Self::Future;
 }
 
 /// Possible security upgrade on an outbound connection
@@ -90,7 +88,7 @@ where
     type Error = TlsUpgradeError;
     type Future = BoxFuture<'static, Result<(PeerId, Self::Output), Self::Error>>;
 
-    fn secure_inbound(self, socket: C, _: Self::Info, _: Option<PeerId>) -> Self::Future {
+    fn secure_inbound(self, socket: C, _: Self::Info) -> Self::Future {
         async move {
             let stream = futures_rustls::TlsAcceptor::from(Arc::new(self.server))
                 .accept(socket)
