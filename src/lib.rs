@@ -1,5 +1,9 @@
+mod apply;
+mod boxed;
 mod certificate;
 mod error;
+mod secure;
+mod transport;
 mod upgrade;
 mod verifier;
 
@@ -11,7 +15,12 @@ use rustls::ServerConfig;
 use std::sync::Arc;
 use verifier::Libp2pCertificateVerifier;
 
+pub(crate) use apply::{
+    apply, apply_inbound, apply_outbound, InboundUpgradeApply, OutboundUpgradeApply,
+};
+pub(crate) use error::TlsUpgradeError;
 pub use futures_rustls::TlsStream;
+pub(crate) use secure::{secure, EitherSecurityFuture};
 pub use upgrade::Config;
 
 const P2P_ALPN: &[u8] = b"libp2p";
