@@ -69,7 +69,7 @@ winget install --id Git.Git
 winget install --id Docker.DockerDesktop
 winget install --id Rustlang.Rust.MSVC
 ```
-Otherwise, you could use the Windows Subsystem for Linux ([WSL](https://docs.microsoft.com/en-us/windows/wsl/install)) as development environment and and follow the suggestions for Debian/Ubuntu. 
+Otherwise, you could use the Windows Subsystem for Linux ([WSL](https://docs.microsoft.com/en-us/windows/wsl/install)) as development environment and follow the suggestions for Debian/Ubuntu. 
 </details>
 
 ## 🔧 Development <a name = "development"></a>
