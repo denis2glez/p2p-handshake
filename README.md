@@ -16,7 +16,7 @@ This repo began as an exploration of a simple implementation of a [TLS] handshak
 (P2P) network and led to a more in-depth study of the popular P2P networking framework [libp2p], and,
 in particular, of the Rust implementation [rust-libp2p].
 
-> **Note**
+> [!IMPORTANT]
 > This repository includes code that is [being merged](https://github.com/libp2p/rust-libp2p/pull/4864)
 > into the upstream rust-libp2p project.
 
@@ -30,7 +30,7 @@ To use your host system as development enviroment install the following dependen
 - [Rust](https://www.rust-lang.org/tools/install).
 - [Docker](https://docs.docker.com/get-docker/) (optional).
 
-> **Note**
+> [!TIP]
 > In any case, you can check below for suggestions on how to install the prerequisites on your system.
 
 <details open>
