@@ -9,10 +9,11 @@
 
 use crate::certificate::{self, P2pCertificate};
 use crate::error::TlsUpgradeError;
+use crate::{make_client_config, make_server_config};
 use futures::{future::BoxFuture, AsyncRead, AsyncWrite, Future, FutureExt};
 use futures_rustls::TlsStream;
 use libp2p_core::upgrade::UpgradeInfo;
-use libp2p_identity::PeerId;
+use libp2p_identity::{Keypair, PeerId};
 use rustls::{ClientConfig, ServerConfig};
 use rustls::{CommonState, ServerName};
 use std::net::{IpAddr, Ipv4Addr};
@@ -59,6 +60,15 @@ pub trait OutboundSecurityUpgrade<T>: UpgradeInfo {
 pub struct Config {
     server: ServerConfig,
     client: ClientConfig,
+}
+
+impl Config {
+    pub fn new(identity: &Keypair) -> Result<Self, certificate::GenError> {
+        Ok(Self {
+            server: make_server_config(identity)?,
+            client: make_client_config(identity, None)?,
+        })
+    }
 }
 
 impl UpgradeInfo for Config {

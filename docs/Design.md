@@ -73,6 +73,13 @@ in `upgrade::secure` that calls the `InboundSecurityUpgrade`/`OutboundSecurityUp
 of `InboundConnectionUpgrade`/`OutboundConnectionUpgrade`. Finally, we complete the solution by providing
 an implementation of the `InboundSecurityUpgrade`/`OutboundSecurityUpgrade` trait for TLS transport.
 
+## Celestia
+
+[Celestia] is known as one of the first modular blockchain networks that makes it easy to create new
+blockchains. Celestia attempts to improve scaling by rethinking blockchain architecture and tries to
+be a minimal blockchain that decouples execution from consensus by introducing a new primitive: data
+availability sampling. Given its modular design and the fact that, like most modern blockchains, it
+is built on top of libp2p, it was chosen as the reference blockchain to test the implemented handshake. 
 
 [TCP]: https://datatracker.ietf.org/doc/rfc9293
 [TLS]: https://datatracker.ietf.org/doc/rfc8446
@@ -81,3 +88,4 @@ an implementation of the `InboundSecurityUpgrade`/`OutboundSecurityUpgrade` trai
 [TLS handshake specification]: https://github.com/libp2p/specs/blob/master/tls/tls.md
 [design considerations]: https://github.com/libp2p/specs/blob/master/tls/design%20considerations.md
 [rust-libp2p]: https://github.com/libp2p/rust-libp2p
+[Celestia]: https://celestia.org
