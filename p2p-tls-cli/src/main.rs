@@ -1,5 +1,7 @@
 use clap::Parser;
 use libp2p::Multiaddr;
+use p2p_tls_cli::generic_p2p_node;
+use tracing_subscriber::EnvFilter;
 
 /// Simple program to perform a TLS handshake with a Celestia node.
 #[derive(Parser, Debug)]
@@ -10,8 +12,17 @@ struct Args {
     pub listen_addrs: Vec<Multiaddr>,
 }
 
-fn main() {
-    let args = Args::parse();
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    let _ = tracing_subscriber::fmt()
+        .with_env_filter(EnvFilter::from_default_env())
+        .try_init();
 
-    println!("{args:?}");
+    let _ = dotenvy::dotenv();
+
+    let _ = Args::parse();
+
+    let _ = generic_p2p_node().await?;
+
+    Ok(())
 }
