@@ -23,7 +23,7 @@ libp2p = { version = "0.53.1", features = [
     "identify",
     "macros",
     "tcp",
-    "tls",      # TODO: Delete after finishing testing
+    "tls",
     "tokio",
     "yamux",
 ] }
