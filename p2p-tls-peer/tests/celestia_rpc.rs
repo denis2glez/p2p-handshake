@@ -3,17 +3,10 @@
 use crate::utils::client::{new_test_client, AuthLevel};
 use celestia_rpc::prelude::*;
 use celestia_types::p2p;
-use libp2p::{identity, PeerId};
-use p2p_tls_cli::generic_p2p_node;
+use p2p_tls_peer::generic_p2p_node;
 use tokio::time::{sleep, Duration};
 
 pub mod utils;
-
-#[tokio::test]
-async fn info_test() {
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-    client.p2p_info().await.expect("Failed to get node info");
-}
 
 #[tokio::test]
 async fn add_remove_peer_test() {
@@ -161,61 +154,6 @@ async fn peer_block_unblock_test() {
 }
 
 #[tokio::test]
-async fn bandwidth_stats_test() {
-    // just check whether we can get the data without error, node could have been running any
-    // amount of time, so any value should be valid.
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-    client
-        .p2p_bandwidth_stats()
-        .await
-        .expect("failed to get bandwidth stats");
-}
-
-#[tokio::test]
-async fn bandwidth_for_peer_test() {
-    let local_key = identity::Keypair::generate_ed25519();
-    let local_peer_id = p2p::PeerId(PeerId::from(local_key.public()));
-
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-    let stats = client
-        .p2p_bandwidth_for_peer(&local_peer_id)
-        .await
-        .expect("failed to get bandwidth stats for peer");
-
-    // where should be no data exchanged with peer that we're not connected to
-    assert_eq!(stats.total_in, 0.0);
-    assert_eq!(stats.total_out, 0.0);
-    assert_eq!(stats.rate_in, 0.0);
-    assert_eq!(stats.rate_out, 0.0);
-}
-
-#[tokio::test]
-async fn bandwidth_for_protocol_test() {
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-
-    // query for nonsense protocol name so that we get all zeros in response
-    // until we have better way of inducing traffic
-    let stats = client
-        .p2p_bandwidth_for_protocol("/foo/bar")
-        .await
-        .expect("failed to get bandwidth stats");
-    assert_eq!(stats.total_in, 0.0);
-    assert_eq!(stats.total_out, 0.0);
-    assert_eq!(stats.rate_in, 0.0);
-    assert_eq!(stats.rate_out, 0.0);
-}
-
-#[tokio::test]
-async fn nat_status_test() {
-    // just query for status and make sure no errors happen, since any value is potentially correct
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-    let _ = client
-        .p2p_nat_status()
-        .await
-        .expect("failed to query NAT status");
-}
-
-#[tokio::test]
 async fn peer_info_test() {
     let addr_info = generic_p2p_node()
         .await
@@ -240,27 +178,6 @@ async fn peer_info_test() {
         .expect("failed to get peer info");
 
     assert_eq!(addr_info.id, peer_info.id);
-}
-
-#[tokio::test]
-async fn pub_sub_peers_test() {
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-    let peers = client
-        .p2p_pub_sub_peers("topic")
-        .await
-        .expect("failed to get topic peers");
-
-    assert!(peers.is_none())
-}
-
-#[tokio::test]
-async fn resource_state_test() {
-    // cannot really test values here, just make sure it deserializes correctly
-    let client = new_test_client(AuthLevel::Admin).await.unwrap();
-    client
-        .p2p_resource_state()
-        .await
-        .expect("failed to get resource state");
 }
 
 async fn rpc_call_delay() {
