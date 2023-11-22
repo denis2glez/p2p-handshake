@@ -1,4 +1,16 @@
+## Content
+
+- [Content](#content)
+- [TCP and TLS](#tcp-and-tls)
+- [libp2p](#libp2p)
+- [TCP and TLS in libp2p](#tcp-and-tls-in-libp2p)
+- [libp2p TLS handshake](#libp2p-tls-handshake)
+- [libp2p Rust implementation](#libp2p-rust-implementation)
+  - [Security handshake issues](#security-handshake-issues)
+- [Celestia](#celestia)
+
 ## TCP and TLS
+
 Transmission Control Protocol ([TCP]) is one of the foundations of the Internet protocol suite and was
 developed in the 1970s. While Transport Layer Security ([TLS]) is a cryptographic protocol widely used
 in applications such as email, messaging instant and voice over IP, its use to secure [HTTPS] remains
