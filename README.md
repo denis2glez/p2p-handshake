@@ -27,7 +27,8 @@ For futher information, see the [docs](./docs/overview.md).
 
 To use your host system as development enviroment install the following dependencies.
 
-- `curl`, `git`.
+- `curl`, `git`
+- [protobuf compiler](https://grpc.io/docs/protoc-installation)
 - [Rust](https://www.rust-lang.org/tools/install).
 - [Docker](https://docs.docker.com/get-docker/).
 
@@ -41,7 +42,7 @@ If you are using Debian or a derivative (e.g. Ubuntu, Linux Mint), it is recomme
 using the standard installation script. You could install all the development dependencies by running
 the following commands.
 ```sh
-sudo apt install curl git docker
+sudo apt install curl git docker protobuf-compiler
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
@@ -53,7 +54,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 If you are using macOS you could install all the development dependencies using [Homebrew](https://brew.sh)
 by running the following commands.
 ```sh
-brew install curl git docker
+brew install curl git docker protobuf
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
@@ -62,7 +63,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 <details close>
 <summary><b>Windows</b></summary>
 
-If you are using Windows, you could install all the required dependencies using the
+If you are using Windows, you could install most of the required dependencies using the
 [`winget`](https://docs.microsoft.com/en-us/windows/package-manager/winget/#production-recommended)
 CLI tool by running the following commands.
 ```sh
