@@ -9,7 +9,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rustls = { version = "0.21.8", features = ["dangerous_configuration"] }
+rustls = { version = "0.22.1", features = ["dangerous_configuration"] }
 futures = { version = "0.3.29", default-features = false }
 futures-rustls = "0.24.0"
 tracing = "0.1.40"
