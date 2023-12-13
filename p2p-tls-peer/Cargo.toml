@@ -33,4 +33,4 @@ celestia-types = { git = "https://github.com/eigerco/celestia-node-rs" }
 
 [dev-dependencies]
 celestia-rpc = { git = "https://github.com/eigerco/celestia-node-rs" }
-jsonrpsee = { version = "0.20", features = ["client-core", "macros"] }
+jsonrpsee = { version = "0.21", features = ["client-core", "macros"] }
