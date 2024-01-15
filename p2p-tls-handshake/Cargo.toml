@@ -11,7 +11,7 @@ edition = "2021"
 [dependencies]
 rustls = { version = "0.21.8", features = ["dangerous_configuration"] }
 futures = { version = "0.3.29", default-features = false }
-futures-rustls = "0.24.0"
+futures-rustls = "0.25.1"
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 libp2p-core = "0.41.0"
