@@ -19,7 +19,7 @@ libp2p-identity = "0.2.7"
 multistream-select = "0.13.0"
 x509-parser = "0.15.1"
 webpki = { version = "0.101.7", package = "rustls-webpki", features = ["std"] }
-rcgen = "0.11.3"
+rcgen = "0.12.1"
 yasna = "0.5.2"
 ring = "0.17.5"
 thiserror = "1.0.50"
