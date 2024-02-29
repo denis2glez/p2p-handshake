@@ -17,7 +17,7 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 libp2p-core = "0.41.0"
 libp2p-identity = "0.2.7"
 multistream-select = "0.13.0"
-x509-parser = "0.15.1"
+x509-parser = "0.16.0"
 webpki = { version = "0.101.7", package = "rustls-webpki", features = ["std"] }
 rcgen = "0.11.3"
 yasna = "0.5.2"
